@@ -15,7 +15,12 @@ set noexpandtab
 " spell
 set spelllang=en
 set nospell
-set spellfile=$HOME/Dropbox/configurefile/vim/spell/en.utf-8.add
+"set spellfile=$HOME/Dropbox/configurefiles/vim/spell/en.utf-8.add
+hi SpellBad ctermbg=124 ctermfg=255
+
+" move
+nnoremap B 5b
+nnoremap W 5w
 
 
 " folding
