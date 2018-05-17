@@ -22,11 +22,10 @@ hi SpellBad ctermbg=124 ctermfg=255
 nnoremap B 5b
 nnoremap W 5w
 
-
 " folding
 set foldmethod=syntax
 set foldlevel=99
-nnoremap <space> za
+"nnoremap <space> za
 autocmd BufWinLeave *.* mkview	
 autocmd BufWinEnter *.* silent loadview 
 highlight Folded ctermbg=white ctermfg=black
