@@ -9,8 +9,7 @@ set number hlsearch autoindent nowrap ruler
 " text format
 set tabstop=4
 set shiftwidth=4
-set softtabstop=0 
-set noexpandtab
+set expandtab
 
 " spell
 set spelllang=en
