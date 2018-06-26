@@ -1,7 +1,7 @@
 #!/bin/bash
 
 alias rm='mv2recycle'
-alias sshy='ssh -Y'
+alias shy='ssh -Y'
 alias chrome='google-chrome'
 alias Foxit='FoxitReader'
 alias vi='vim'
