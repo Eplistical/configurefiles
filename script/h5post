@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+import numpy as np
+
+import os
+import sys
+import matplotlib as mpl
+import matplotlib.style
+HAVE_DISPLAY = 0 == os.system('python3 -c "import matplotlib.pyplot as plt;plt.figure()"')
+if not HAVE_DISPLAY:
+    mpl.use('Agg')
+
+from matplotlib import pyplot as plt
+plt.style.use('default')
+
+import argparse
+import h5py
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-f', type=str, help='file names', nargs='*')
+parser.add_argument('-x', type=str, default='x', help='# key for x axis')
+parser.add_argument('-y', nargs='*', default=[], help='# keys for y axes')
+parser.add_argument('-skip', type=int, help='# rows to skip')
+parser.add_argument('-nrow', type=int, help='# rows to load')
+parser.add_argument('-dilute', type=int, default=1, help='dilution times')
+args = parser.parse_args()
+
+if args.skip is None:
+    skiprows = 0
+else:
+    skiprows = args.skip
+
+styles = ('-', '--', ':', '-.')
+fig = plt.figure()
+for ifile, fname in enumerate(args.f):
+    print('processing ', fname)
+    style = styles[ifile % len(styles)]
+    f = h5py.File(fname, 'r')
+
+    if args.nrow is None:
+        x = f[args.x][skiprows::args.dilute]
+    else:
+        x = f[args.x][skiprows:skiprows:args.dilute + args.nrow]
+
+    if args.y == []:
+        ykeys = list(f.keys())
+    else:
+        ykeys = args.y
+
+    for key in ykeys:
+        if key == 'para' or key == args.x:
+            pass
+        else:
+            if args.nrow is None:
+                y = f[key][skiprows::args.dilute]
+            else:
+                y = f[key][skiprows:skiprows:args.dilute + args.nrow]
+            plt.plot(x, y, style, label='%s (%s)' % (key, fname))
+
+    f.close()
+
+plt.legend()
+plt.show()

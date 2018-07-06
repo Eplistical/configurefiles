@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+
+import numpy as np
+
+import os
+import matplotlib as mpl
+import matplotlib.style
+HAVE_DISPLAY = 0 == os.system('python3 -c "import matplotlib.pyplot as plt;plt.figure()"')
+if not HAVE_DISPLAY:
+    mpl.use('Agg')
+
+from matplotlib import pyplot as plt
+plt.style.use('default')
+import argparse
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument('fnames', type=str, help='file name', nargs='*')
+parser.add_argument('-N', type=int, help='# cols to plot')
+parser.add_argument('-skip', type=int, help='# rows to skip')
+parser.add_argument('-nrow', type=int, help='# rows to load')
+args = parser.parse_args()
+
+if args.skip is None:
+    skiprows = 0
+else:
+    skiprows = args.skip
+
+
+styles = ('-', '--', ':', '-.')
+fig = plt.figure()
+for ifile, fname in enumerate(args.fnames):
+    style = styles[ifile % len(styles)]
+
+    if args.nrow is None:
+        a = np.genfromtxt(fname, skip_header=skiprows)
+    else:
+        a = np.genfromtxt(fname, skip_header=skiprows, max_rows=args.nrow)
+
+    if args.N is None:
+        for i in range(1,a.shape[1]):
+            plt.plot(a[:,0], a[:,i], style, label='%s col %d' % (fname, i, ))
+    else:
+        for i in range(1,args.N+1):
+            try:
+                plt.plot(a[:,0], a[:,i], style, label='%s col %d' % (fname, i, ))
+            except:
+                pass
+
+plt.legend()
+plt.show()
