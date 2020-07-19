@@ -1,20 +1,21 @@
 #!/bin/bash
 
-if [ $# == 0 ]; then
+if [[ $# == 0 ]]; then
 	echo "No Input file"
 	exit
 fi
 
 dt=`date '+%m_%d_%Y_%H:%M:%S'`
 
-for var in $@
-do
+for var in $@ ; do
 	# get dir and file
 	dir=$(dirname "${var}")
 	file=$(basename "${var}")
-	# file exist
-	if [ -f ${dir}/${file} ]; then
-		# mv to recycle
+    if [[ -L ${dir}/${file} ]]; then
+        # symbolic link -- remove
+		rm ${var} 
+	elif [[ -f ${dir}/${file} ]]; then
+		# regular file -- mv to recycle path
 		mv ${var} $RECYCLEPATH/"${file}_${dt}"
 	else
 		echo "* ${dir}/${file}: not exists"
