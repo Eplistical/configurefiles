@@ -48,3 +48,9 @@ noremap <F3> :set invautoindent<CR>
 noremap <F9> :set invspell<CR>
 
 " basic configurations 
+
+
+
+" no alert sound!
+set visualbell
+set t_vb=

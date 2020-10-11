@@ -3,7 +3,6 @@
 alias rm='mv2recycle'
 alias shy='ssh -Y'
 alias chrome='google-chrome'
-alias Foxit='FoxitReader'
 alias vi='vim'
 alias bra="vi $HOME/.bash_aliases"
 alias brc="vi $HOME/.bashrc"
@@ -14,3 +13,9 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias ll='ls -l'
+
+alias c='clear'
+alias up='cd ..'
+
+alias gb='git branch'
+alias gs='git status'
