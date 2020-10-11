@@ -17,5 +17,12 @@ alias ll='ls -l'
 alias c='clear'
 alias up='cd ..'
 
+# git
 alias gb='git branch'
 alias gs='git status'
+
+# tmux
+alias txn='tmux new'
+alias txa='tmux attach'
+alias txl='tmux ls'
+alias txk='tmux kill-session'
