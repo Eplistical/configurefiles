@@ -1,7 +1,13 @@
 " basic
 syntax on
+" Use new regular expression engine
+set re=0
+
+" disable syntax for large files to speed up open
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 500000 | syntax clear | endif
+
 filetype plugin indent on
-set backspace=indent,eol,start	
+set backspace=indent,eol,start
 set fileformat=unix
 set encoding=utf-8
 set number hlsearch autoindent nowrap ruler
@@ -10,6 +16,7 @@ set number hlsearch autoindent nowrap ruler
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set smartindent
 
 " spell
 set spelllang=en
@@ -25,8 +32,8 @@ nnoremap W 5w
 set foldmethod=syntax
 set foldlevel=99
 "nnoremap <space> za
-autocmd BufWinLeave *.* mkview	
-autocmd BufWinEnter *.* silent loadview 
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
 highlight Folded ctermbg=white ctermfg=black
 
 " open file at the position as last time exit
@@ -41,16 +48,20 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" different mode 
+" different mode
 noremap <F1> :set invnumber<CR>
 noremap <F2> :set invwrap<CR>
 noremap <F3> :set invautoindent<CR>
 noremap <F9> :set invspell<CR>
 
-" basic configurations 
-
-
-
-" no alert sound!
+" no alert sound
 set visualbell
 set t_vb=
+
+" term
+if $TERM =~ 'xterm-256color'
+    set noek
+endif
+
+set pastetoggle=<F5>
+set nocompatible
